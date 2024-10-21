@@ -13,10 +13,10 @@
     include_once 'Database.php';
     include_once 'Vaca.php';
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $num_ID_Vaca = $_POST["num_ID_Vaca"];
-        $data_Nasc_Vaca = $_POST["data_Nasc_Vaca"];
-        $raça_Vaca = $_POST["raça_Vaca"];
+    if($_SERVER["REQUEST_METHOD"] == "POST") { // Inicia o request de POST
+        $num_ID_Vaca = $_POST["num_ID_Vaca"]; // POST do ID da Vaca
+        $data_Nasc_Vaca = $_POST["data_Nasc_Vaca"]; // POST da Data de Nascimento da Vaca
+        $raça_Vaca = $_POST["raça_Vaca"]; // POST da Raça da vaca
 
         // Usar o Singleton para obter a instância única do banco de dados
         $database = Database::getInstance();
@@ -24,10 +24,10 @@
 
         // Verificar se já existe uma vaca com o mesmo ID no banco de dados
         $sql_check = "SELECT * FROM Vaca WHERE num_ID_Vaca = ?";
-        $stmt = $conn->prepare($sql_check);
-        $stmt->bind_param("s", $num_ID_Vaca);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt = $conn->prepare($sql_check); // prepara a consulta SQL usando a conexão com o banco de dados 
+        $stmt->bind_param("s", $num_ID_Vaca); // associa o valor do parâmetro a consulta, o "s" indica que o tipo de dado do parâmetro é uma string.
+        $stmt->execute(); // executa a consulta
+        $result = $stmt->get_result(); // pega o resultado da consulta
 
         if ($result->num_rows > 0) {
             // Se já existir, exibe uma mensagem de alerta
