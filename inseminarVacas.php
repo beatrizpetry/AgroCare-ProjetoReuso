@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/areaVet.css">
+    <link rel="stylesheet" href="style/estiloGeral.css">
     <title>Inseminação</title>
 </head>
 <body>
@@ -73,7 +73,7 @@
             </form>
             <form>
                 <div class="box1">
-                    <footer>*Ao informar a Identificação do Animal e Realizar a busca, você estará confirmando a realização da Inseminação</footer>
+                    <h6>*Ao informar a Identificação do Animal e Realizar a busca, você estará confirmando a realização da Inseminação</h6>
                 </div>
             </form>
         </div>
