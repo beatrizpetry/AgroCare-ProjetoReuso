@@ -12,17 +12,17 @@
         <h1>Fazendeiro</h1>
         <img src="img/vaca.png" class="imagem-vaca" width="110px">
         <button class="menu-button" id="menuButton"></button>
-            <div class="menu-box" id="menuBox">
-                <ul>
-                    <li><a href="telaPrincipal.php">Gerenciar Cadastros</a></li>
-                    <li><a href="telaFazendeiro.php">Acompanhamento</a></li>
-                    <li><a href="javascript:history.back()">Voltar</a></li>
-                    <li><a href="Login.php">Sair</a></li>
-                </ul>
-            </div>
+        <div class="menu-box" id="menuBox">
+            <ul>
+                <li><a href="telaPrincipal.php">Gerenciar Cadastros</a></li>
+                <li><a href="telaFazendeiro.php">Acompanhamento</a></li>
+                <li><a href="javascript:history.back()">Voltar</a></li>
+                <li><a href="Login.php">Sair</a></li>
+            </ul>
+        </div>
     </div>
     <div class="main">
-        <h2>Acompanhamento</h3>
+        <h2>Acompanhamento</h2>
         <table class="container">
             <thead>
                 <tr>
@@ -35,18 +35,13 @@
             <tbody>
                 
                 <?php
-                    // Conexão com o banco de dados 
-                    $servername = "localhost";   
-                    $username = "agrocare";
-                    $password = " ";
-                    $database = "agrocarefinal";
-                    $conn = new mysqli($servername, $username, $password, $database);
-    
-                    // Verificação de erros na conexão
-                    if ($conn->connect_error) {
-                        die("Falha na conexão: " . $conn->connect_error);
-                    }
-    
+                    // Incluindo o Singleton para conexão com o banco de dados
+                    include_once 'Database.php';
+                    
+                    // Usar o Singleton para obter a instância única do banco de dados
+                    $database = Database::getInstance();
+                    $conn = $database->conn;
+
                     // Consulta ao banco de dados
                     $sql = "SELECT * FROM Vaca";
                     $result = $conn->query($sql);
@@ -59,17 +54,15 @@
                     // Exibição dos valores na tabela
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-
                         echo "<td>" . $row["num_ID_Vaca"] . "</td>";
                         echo "<td>" . $row["data_Nasc_Vaca"] . "</td>";
                         echo "<td>" . $row["raça_Vaca"] . "</td>";
                         echo "<td>" . $row["estado_Inseminação"] . "</td>";
-
-
+                        echo "</tr>";
                     }
-    
-                    // Fechamento da conexão com o banco de dados
-                    $conn->close();
+                    
+                    // Fechamento opcional da conexão com o banco de dados
+                    $database->closeConnection();
                 ?>
                 
             </tbody>

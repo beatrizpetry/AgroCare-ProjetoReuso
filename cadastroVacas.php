@@ -18,8 +18,8 @@
         $data_Nasc_Vaca = $_POST["data_Nasc_Vaca"];
         $raça_Vaca = $_POST["raça_Vaca"];
 
-        // Instanciar a conexão com o banco
-        $database = new Database();
+        // Usar o Singleton para obter a instância única do banco de dados
+        $database = Database::getInstance();
         $conn = $database->conn;
 
         // Criar um objeto Vaca e cadastrar
@@ -30,7 +30,6 @@
             echo "<script>alert('Erro ao cadastrar vaca')</script>";
         }
 
-        // Fechar conexão com o banco
         $database->closeConnection();
     }
 ?>
@@ -40,7 +39,7 @@
         <button class="menu-button" id="menuButton"></button>
         <div class="menu-box" id="menuBox">
             <ul>
-                <li><a href=deletarVacas.php>Deletar Vacas</a></li>
+                <li><a href="deletarVacas.php">Deletar Vacas</a></li>
                 <li><a href="cadastroVacas.php">Voltar</a></li>
                 <li><a href="login.php">Sair</a></li>
             </ul>

@@ -11,38 +11,48 @@
 
     <?php
         session_start();
-        include_once('bd/conexao_agrocare.php');
-        if(!empty($_GET['search'])) {
-
+        include_once('Database.php'); 
+        
+        if (!empty($_GET['search'])) {
             $data = $_GET['search'];
+
+            // Obter a instância do banco de dados via Singleton
+            $database = Database::getInstance();
+            $conn = $database->conn;
+
+            // Consulta SQL para buscar a vaca
             $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
-            $result = $connectbd->query($sql);
+            $result = $conn->query($sql);
+
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='dados-vaca'>";
                     echo "<script>alert('Número Identificador: " . $row['num_ID_Vaca'] . " - Inseminação Confirmada')</script>";
                     echo "</div>";
                 }
-            } else{
+            } else {
                 echo "<script>alert('Vaca não encontrada no sistema, confira o Identificador informado.')</script>";
             }
         } 
+        
         if (!empty($_GET['search'])) {
             $data = $_GET['search'];
+
+            // Obter a instância do banco de dados via Singleton
+            $database = Database::getInstance();
+            $conn = $database->conn;
         
             // Consulta SQL para obter a vaca correspondente ao número identificador
             $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
-            $result = $connectbd->query($sql);
+            $result = $conn->query($sql);
         
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    // Obtenha o ID da vaca
                     $id_vaca = $row['num_ID_Vaca'];
         
-                    // Atualize o campo de inseminação da vaca adicionando +1
                     $string = "Inseminação Realizada";
                     $sql_update = "UPDATE Vaca SET estado_Inseminação = '$string' WHERE num_ID_Vaca = '$id_vaca'";
-                    $connectbd->query($sql_update);
+                    $conn->query($sql_update);
                 }
             } 
         }
@@ -64,11 +74,11 @@
     <div class="main">
         <div class="inputs">
             <h2>Inseminação de Vacas</h2>
-            <form mehtod = "GET" action= "areaVet.php">
+            <form method="GET" action="areaVet.php">
                 <div class="box1">
                     <label>N° Identificador:</label>
-                    <input type="search"class = "form-control w-25" id ="pesquisar" name= "search" size="30" placeholder="ID da Vaca que será Inseminada" pattern="[0-9]{3}" maxlength="10" required><br>
-                    <button oncanplay ="searchData()" id="btn-buscar" class="btn-buscar">Realizar Inseminação</button>
+                    <input type="search" class="form-control w-25" id="pesquisar" name="search" size="30" placeholder="ID da Vaca que será Inseminada" pattern="[0-9]{3}" maxlength="10" required><br>
+                    <button id="btn-buscar" class="btn-buscar">Realizar Inseminação</button>
                 </div>
             </form>
             <form>

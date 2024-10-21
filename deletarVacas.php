@@ -17,8 +17,8 @@ include_once 'Vaca.php';
 if (!empty($_GET['search'])) {
     $num_ID_Vaca = $_GET['search'];
 
-    // Instanciar a conexão com o banco
-    $database = new Database();
+    // Usar o Singleton para obter a instância única do banco de dados
+    $database = Database::getInstance();
     $conn = $database->conn;
 
     // Criar um objeto Vaca passando apenas o num_ID_Vaca
@@ -38,40 +38,37 @@ if (!empty($_GET['search'])) {
         echo "<script>alert('Vaca não encontrada no sistema. Confira o identificador informado.')</script>";
     }
 
-    // Fechar conexão com o banco
     $database->closeConnection();
 }
 ?>
 
-
-    <div class="header">
-        <h1>Funcionário</h1>
-        <img src="img/vaca.png" class="imagem-vaca" width="110px">
-        <button class="menu-button" id="menuButton"></button>
-        <div class="menu-box" id="menuBox">
-            <ul>
-                <li><a href="cadastroVacas.php">Cadastro de Vacas</a></li>
-                <li><a href="deletarVacas.php">Voltar</a></li>
-                <li><a href="login.php">Sair</a></li>
-            </ul>
-        </div>
+<div class="header">
+    <h1>Funcionário</h1>
+    <img src="img/vaca.png" class="imagem-vaca" width="110px">
+    <button class="menu-button" id="menuButton"></button>
+    <div class="menu-box" id="menuBox">
+        <ul>
+            <li><a href="cadastroVacas.php">Cadastro de Vacas</a></li>
+            <li><a href="deletarVacas.php">Voltar</a></li>
+            <li><a href="login.php">Sair</a></li>
+        </ul>
     </div>
+</div>
 
-    <div class="main">
-        <div class="inputs">
-            <h2>Remover Vacas</h2>
-            <form method="GET" action="deletarVacas.php">
-                <div class="box1">
-                    <label>N° Identificador:</label>
-                    <input type="search" class="form-control w-25" id="pesquisar" name="search" size="30" placeholder="ID da Vaca que será Deletada" pattern="[0-9]{3}" maxlength="10" required><br>
-                    <button id="btn-buscar" class="btn-buscar" type="submit">Remover</button>
-                </div>
-            </form>
-            <h6>*Ao informar a Identificação do Animal e realizar a busca, você estará confirmando sua remoção no sistema</h6>
-        </div>
+<div class="main">
+    <div class="inputs">
+        <h2>Remover Vacas</h2>
+        <form method="GET" action="deletarVacas.php">
+            <div class="box1">
+                <label>N° Identificador:</label>
+                <input type="search" class="form-control w-25" id="pesquisar" name="search" size="30" placeholder="ID da Vaca que será Deletada" pattern="[0-9]{3}" maxlength="10" required><br>
+                <button id="btn-buscar" class="btn-buscar" type="submit">Remover</button>
+            </div>
+        </form>
+        <h6>*Ao informar a Identificação do Animal e realizar a busca, você estará confirmando sua remoção no sistema</h6>
     </div>
+</div>
 
-    <script src="scripts/scriptCadVacas.js"></script>
+<script src="scripts/scriptCadVacas.js"></script>
 </body>
 </html>
-
