@@ -25,8 +25,8 @@ if (!empty($_GET['search'])) {
     $vaca = new Vaca($num_ID_Vaca);
     $resultadoBusca = $vaca->buscarVaca($conn);
 
-    if ($resultadoBusca->num_rows > 0) {
-        while ($row = $resultadoBusca->fetch_assoc()) {
+    if ($resultadoBusca->num_rows > 0) { // verifica se a busca retornou algum resultado
+        while ($row = $resultadoBusca->fetch_assoc()) { // itera por cada linha do resultado da busca, retornando um array associativo para cada vaca encontrada
             // Deletar vaca encontrada
             if ($vaca->deletarVaca($conn)) {
                 echo "<script>alert('Vaca com número identificador: " . $row['num_ID_Vaca'] . " foi removida com sucesso.')</script>";
