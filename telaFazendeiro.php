@@ -60,7 +60,6 @@
                         echo "</tr>";
                     }
                     
-                    // Fechamento opcional da conexão com o banco de dados
                     $database->closeConnection();
                 ?>
                 

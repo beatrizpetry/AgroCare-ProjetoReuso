@@ -38,7 +38,6 @@ if (!empty($_GET['search'])) {
         echo "<script>alert('Vaca não encontrada no sistema. Confira o identificador informado.')</script>";
     }
 
-    // Fechar conexão com o banco (opcional)
     $database->closeConnection();
 }
 ?>

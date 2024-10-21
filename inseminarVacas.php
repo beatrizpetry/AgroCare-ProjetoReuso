@@ -13,12 +13,11 @@
         session_start();
         include_once('Database.php'); 
         
+        $database = Database::getInstance();
+        $conn = $database->conn;
+
         if (!empty($_GET['search'])) {
             $data = $_GET['search'];
-
-            // Obter a instância do banco de dados via Singleton
-            $database = Database::getInstance();
-            $conn = $database->conn;
 
             // Consulta SQL para buscar a vaca
             $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
@@ -37,10 +36,6 @@
         
         if (!empty($_GET['search'])) {
             $data = $_GET['search'];
-
-            // Obter a instância do banco de dados via Singleton
-            $database = Database::getInstance();
-            $conn = $database->conn;
         
             // Consulta SQL para obter a vaca correspondente ao número identificador
             $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
@@ -56,6 +51,9 @@
                 }
             } 
         }
+
+        // Fechar a conexão com o banco de dados
+        $database->closeConnection();
     ?>
 
 
