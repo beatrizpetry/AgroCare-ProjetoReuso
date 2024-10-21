@@ -10,49 +10,62 @@
 <body>
 
     <?php
+        // Inicia a sessão para armazenar e acessar dados globais entre páginas
         session_start();
+
+        // Inclui o arquivo Database.php para obter a conexão com o banco de dados através da classe Singleton
         include_once('Database.php'); 
         
+        // Verifica se o parâmetro 'search' não está vazio, ou seja, se foi enviado algum valor de busca
         if (!empty($_GET['search'])) {
-            $data = $_GET['search'];
+            $data = $_GET['search']; // Armazena o valor da busca na variável $data
 
-            // Obter a instância do banco de dados via Singleton
+            // Obter a instância da conexão ao banco de dados via Singleton para reutilização da mesma conexão
             $database = Database::getInstance();
             $conn = $database->conn;
 
-            // Consulta SQL para buscar a vaca
+            // Consulta SQL que busca uma vaca no banco de dados com base no identificador fornecido
+            // Utiliza LIKE para buscar valores semelhantes ao que foi passado na busca
             $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
             $result = $conn->query($sql);
 
+            // Verifica se a consulta retornou resultados
             if ($result->num_rows > 0) {
+                // Itera sobre os resultados encontrados
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='dados-vaca'>";
+                    // Exibe um alerta no navegador informando o número identificador da vaca e que a inseminação foi confirmada
                     echo "<script>alert('Número Identificador: " . $row['num_ID_Vaca'] . " - Inseminação Confirmada')</script>";
                     echo "</div>";
                 }
             } else {
+                // Se não houver resultados, exibe uma mensagem de alerta informando que a vaca não foi encontrada
                 echo "<script>alert('Vaca não encontrada no sistema, confira o Identificador informado.')</script>";
             }
         } 
         
+        // Repete a verificação se o parâmetro 'search' não está vazio (duplicação de código)
         if (!empty($_GET['search'])) {
-            $data = $_GET['search'];
+            $data = $_GET['search']; // Armazena novamente o valor da busca na variável $data
 
-            // Obter a instância do banco de dados via Singleton
+            // Obter a instância da conexão ao banco de dados via Singleton para garantir o reuso da conexão
             $database = Database::getInstance();
             $conn = $database->conn;
         
-            // Consulta SQL para obter a vaca correspondente ao número identificador
+            // Consulta SQL para buscar vaca correspondente ao número de identificação
             $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
             $result = $conn->query($sql);
         
+            // Verifica se há resultados na consulta
             if ($result->num_rows > 0) {
+                // Itera pelos resultados da consulta
                 while ($row = $result->fetch_assoc()) {
-                    $id_vaca = $row['num_ID_Vaca'];
-        
+                    $id_vaca = $row['num_ID_Vaca']; // Armazena o ID da vaca para uso na atualização
+                    
+                    // Atualiza o estado da inseminação no banco de dados
                     $string = "Inseminação Realizada";
                     $sql_update = "UPDATE Vaca SET estado_Inseminação = '$string' WHERE num_ID_Vaca = '$id_vaca'";
-                    $conn->query($sql_update);
+                    $conn->query($sql_update); // Executa a consulta de atualização no banco
                 }
             } 
         }
