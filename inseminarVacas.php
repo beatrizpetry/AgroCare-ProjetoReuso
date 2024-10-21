@@ -65,8 +65,9 @@
         <button class="menu-button" id="menuButton"></button>
             <div class="menu-box" id="menuBox">
                 <ul>
-                    <li><a href="areaVet.php">Voltar</a></li>
-                    <li><a href="login.php">Sair</a></li>
+                <li><a href="deletarVacas.php">Deletar Vacas</a></li>
+                <li><a href="telaFazendeiro.php">Acompanhamento</a></li>
+                <li><a href="cadastroVacas.php">Inseminar Vacas</a></li>
                 </ul>
             </div>
         </div>

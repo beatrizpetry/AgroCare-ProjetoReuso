@@ -38,6 +38,7 @@ if (!empty($_GET['search'])) {
         echo "<script>alert('Vaca não encontrada no sistema. Confira o identificador informado.')</script>";
     }
 
+    // Fechar conexão com o banco (opcional)
     $database->closeConnection();
 }
 ?>
@@ -48,9 +49,9 @@ if (!empty($_GET['search'])) {
     <button class="menu-button" id="menuButton"></button>
     <div class="menu-box" id="menuBox">
         <ul>
-            <li><a href="cadastroVacas.php">Cadastro de Vacas</a></li>
-            <li><a href="deletarVacas.php">Voltar</a></li>
-            <li><a href="login.php">Sair</a></li>
+            <li><a href="cadastroVacas.php">Cadastrar Vacas</a></li>
+            <li><a href="telaFazendeiro.php">Acompanhamento</a></li>
+            <li><a href="inseminarVacas.php">Inseminar Vacas</a></li>
         </ul>
     </div>
 </div>

@@ -22,14 +22,27 @@
         $database = Database::getInstance();
         $conn = $database->conn;
 
-        // Criar um objeto Vaca e cadastrar
-        $vaca = new Vaca($num_ID_Vaca, $data_Nasc_Vaca, $raça_Vaca);
-        if ($vaca->cadastrarVaca($conn)) {
-            echo "<script>alert('Vaca cadastrada com Sucesso')</script>";
+        // Verificar se já existe uma vaca com o mesmo ID no banco de dados
+        $sql_check = "SELECT * FROM Vaca WHERE num_ID_Vaca = ?";
+        $stmt = $conn->prepare($sql_check);
+        $stmt->bind_param("s", $num_ID_Vaca);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Se já existir, exibe uma mensagem de alerta
+            echo "<script>alert('Erro: Já existe uma vaca cadastrada com esse ID.')</script>";
         } else {
-            echo "<script>alert('Erro ao cadastrar vaca')</script>";
+            // Se não existir, cria a vaca no banco
+            $vaca = new Vaca($num_ID_Vaca, $data_Nasc_Vaca, $raça_Vaca);
+            if ($vaca->cadastrarVaca($conn)) {
+                echo "<script>alert('Vaca cadastrada com Sucesso')</script>";
+            } else {
+                echo "<script>alert('Erro ao cadastrar vaca')</script>";
+            }
         }
 
+        // Fechar conexão com o banco (opcional, pois o Singleton pode manter a conexão aberta)
         $database->closeConnection();
     }
 ?>
@@ -40,8 +53,8 @@
         <div class="menu-box" id="menuBox">
             <ul>
                 <li><a href="deletarVacas.php">Deletar Vacas</a></li>
-                <li><a href="cadastroVacas.php">Voltar</a></li>
-                <li><a href="login.php">Sair</a></li>
+                <li><a href="telaFazendeiro.php">Acompanhamento</a></li>
+                <li><a href="inseminarVacas.php">Inseminar Vacas</a></li>
             </ul>
         </div>
     </div>

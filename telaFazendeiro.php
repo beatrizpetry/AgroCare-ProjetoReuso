@@ -14,10 +14,9 @@
         <button class="menu-button" id="menuButton"></button>
         <div class="menu-box" id="menuBox">
             <ul>
-                <li><a href="telaPrincipal.php">Gerenciar Cadastros</a></li>
-                <li><a href="telaFazendeiro.php">Acompanhamento</a></li>
-                <li><a href="javascript:history.back()">Voltar</a></li>
-                <li><a href="Login.php">Sair</a></li>
+            <li><a href="deletarVacas.php">Deletar Vacas</a></li>
+                <li><a href="cadastroVacas.php">Cadastrar Vacas</a></li>
+                <li><a href="inseminarVacas.php">Inseminar Vacas</a></li>
             </ul>
         </div>
     </div>
