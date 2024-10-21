@@ -27,7 +27,7 @@ body {
 
 .btn-cadastrar {
     font-size: 20px;
-    background-color: #7c894c;
+    background-color: #0f684b;
     padding: 5px 10px;
     color: rgb(255, 255, 255);
     margin: 0px;
@@ -60,7 +60,7 @@ input {
     border: none;
     border-radius: 10px;
     padding: 5px;
-    background: #afbb85;
+    background: #ebebeb;
     font-size: 12pt;
     outline: none;
     box-sizing: border-box;
