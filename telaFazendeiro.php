@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="style/telaFazendeiro.css">
     <title>Tela Fazendeiro</title>
 </head>
+<?php
+require 'database.php';  // Inclui a configuração do Eloquent e a conexão com o banco de dados
+require 'Vaca.php';       // Inclui o modelo Vaca
+
+// Obtém todos os registros da tabela Vaca usando Eloquent
+$vacas = Vaca::all();
+?>
 <body>
     <div class="header">
         <h1>Fazendeiro</h1>
@@ -14,7 +21,7 @@
         <button class="menu-button" id="menuButton"></button>
         <div class="menu-box" id="menuBox">
             <ul>
-            <li><a href="deletarVacas.php">Deletar Vacas</a></li>
+                <li><a href="deletarVacas.php">Deletar Vacas</a></li>
                 <li><a href="cadastroVacas.php">Cadastrar Vacas</a></li>
                 <li><a href="inseminarVacas.php">Inseminar Vacas</a></li>
             </ul>
@@ -33,35 +40,14 @@
             </thead>
             <tbody>
                 
-                <?php
-                    // Incluindo o Singleton para conexão com o banco de dados
-                    include_once 'Database.php';
-                    
-                    // Usar o Singleton para obter a instância única do banco de dados
-                    $database = Database::getInstance();
-                    $conn = $database->conn;
-
-                    // Consulta ao banco de dados
-                    $sql = "SELECT * FROM Vaca";
-                    $result = $conn->query($sql);
-    
-                    // Verificação de erros na consulta
-                    if (!$result) {
-                        die("Erro na consulta: " . $conn->error);
-                    }
-    
-                    // Exibição dos valores na tabela
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["num_ID_Vaca"] . "</td>";
-                        echo "<td>" . $row["data_Nasc_Vaca"] . "</td>";
-                        echo "<td>" . $row["raça_Vaca"] . "</td>";
-                        echo "<td>" . $row["estado_Inseminação"] . "</td>";
-                        echo "</tr>";
-                    }
-                    
-                    $database->closeConnection();
-                ?>
+                <?php foreach ($vacas as $vaca): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($vaca->num_ID_Vaca) ?></td>
+                        <td><?= htmlspecialchars($vaca->data_Nasc_Vaca) ?></td>
+                        <td><?= htmlspecialchars($vaca->raça_Vaca) ?></td>
+                        <td><?= htmlspecialchars($vaca->estado_Inseminação) ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 
             </tbody>
         </table>
