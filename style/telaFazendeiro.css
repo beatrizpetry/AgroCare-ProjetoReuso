@@ -7,10 +7,11 @@ body {
     background: #fdfdfd;
     font-size: larger;
 }
+
 .header {
     width: auto;
     height: 90px;
-    background-color: #4A5034;
+    background-color: #03484c;
 }
 
 .imagem-vaca {
@@ -27,11 +28,10 @@ h1 {
     color: white; 
 }
 
-
 .menu-box {
   width: 0;
   height: 0;
-  background: rgb(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -58,15 +58,15 @@ h1 {
 .menu-box ul, li, a {
   text-decoration: none;
   color: beige;
-  font-size:x-large;
-  text-shadow: 0 0 0 #4A5034;
+  font-size: x-large;
+  text-shadow: 0 0 0 #03484c;
   transition: text-shadow 0.5s;
 }
 
 .menu-box ul, li, a:hover {
-  text-shadow: -3px 0.5px 0#dbfd61
-
+  text-shadow: -3px 0.5px 0 #0f684b;
 }
+
 .menu-button {
   width: 30px;
   height: 20px;
@@ -85,96 +85,51 @@ h1 {
   width: 100%;
   height: 4px;
   background-color: white;
-  box-shadow: 
-  0 10px 0 0 white;
+  box-shadow: 0 10px 0 0 white;
 }
 
 h2 {
-    color: #7c894c;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #03484c;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
 }
 
 table {
     border-collapse: collapse;
-    width: 100%;
-    border-radius: 20px;
+    width: 60%; /* Reduzi a largura da tabela para aproximar as colunas */
+    margin: 0 auto;
+    font-size: 18px;
 }
+
 th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #A7A1AE;
+    text-align: center;
+    padding: 5px; /* Reduzi ainda mais o padding para aproximar as colunas */
+    min-width: 100px; /* Defini uma largura mínima menor para que as colunas fiquem mais próximas */
+    border: none; /* Remover as linhas da tabela */
 }
+
 th {
-    color: white;
-    background-color: #A7A1AE;
+    color: #03484c; /* Retirar o cinza e deixar o texto escuro */
+    font-weight: bold; /* Colocar os identificadores das colunas em negrito */
 }
 
-.container th {
-    text-align: left;
+td {
+    color: #03484c;
 }
 
-.container td {
-    font-weight: normal;
-    font-size: 1em;
+tr:hover {
+    background-color: #f1f1f1;
 }
 
 .container {
-    text-align: left;
-    overflow: hidden;
-    width: 80%;
-    margin: 0 auto;
-display: table;
-padding: 0 0 8em 0;
-}
-
-.container td, .container th {
-    padding-bottom: 2%;
-    padding-top: 2%;
-padding-left:2%;  
-}
-
-.container tr:nth-child(odd) {
-    background-color: #eceee8;
-}
-
-.container tr:nth-child(even) {
-    background-color: #eceee8;
-}
-
-.container th {
-    background-color: #7c894c;
-}
-
-.container td {
-    color: #afbb85;
-}
-
-.container tr:hover {
- background-color: #4A5034;
--webkit-box-shadow: 0 6px 6px -6px #92a355;
-     -moz-box-shadow: 0 6px 6px -6px #92a355;
-          box-shadow: 0 6px 6px -6px #92a355;
-}
-
-.container td:hover {
-background-color: #92a355;
-color: #403E10;
-font-weight: bold;
-
-box-shadow: #0E1119 -1px 1px, #0E1119 -2px 2px, #0E1119 -3px 3px, #0E1119 -4px 4px, #0E1119 -5px 5px, #0E1119 -6px 6px;
-transform: translate3d(6px, -6px, 0);
-
-transition-delay: 0s;
-    transition-duration: 0.4s;
-    transition-property: all;
-transition-timing-function: line;
+    margin-top: 30px;
+    width: 100%;
 }
 
 @media (max-width: 800px) {
-	.container td:nth-child(4),
-.container th:nth-child(4) {
-		  display: none;
-	  }
+    .container td:nth-child(4),
+    .container th:nth-child(4) {
+        display: none;
+    }
 }
