@@ -10,35 +10,21 @@
 <body>
 
 <?php
-session_start();
-include_once 'Database.php';
-include_once 'Vaca.php';
+require 'database.php';
+require 'Vaca.php';
 
 if (!empty($_GET['search'])) {
     $num_ID_Vaca = $_GET['search'];
+    $vacas = Vaca::buscarVaca($num_ID_Vaca);
 
-    // Usar o Singleton para obter a instância única do banco de dados
-    $database = Database::getInstance();
-    $conn = $database->conn;
-
-    // Criar um objeto Vaca passando apenas o num_ID_Vaca
-    $vaca = new Vaca($num_ID_Vaca);
-    $resultadoBusca = $vaca->buscarVaca($conn);
-
-    if ($resultadoBusca->num_rows > 0) { // verifica se a busca retornou algum resultado
-        while ($row = $resultadoBusca->fetch_assoc()) { // itera por cada linha do resultado da busca, retornando um array associativo para cada vaca encontrada
-            // Deletar vaca encontrada
-            if ($vaca->deletarVaca($conn)) {
-                echo "<script>alert('Vaca com número identificador: " . $row['num_ID_Vaca'] . " foi removida com sucesso.')</script>";
-            } else {
-                echo "<script>alert('Erro ao tentar remover a vaca.')</script>";
-            }
+    if ($vacas->isNotEmpty()) {
+        foreach ($vacas as $vaca) {
+            $vaca->deletarVaca();
+            echo "<script>alert('Vaca com número identificador: " . $vaca->num_ID_Vaca . " foi removida com sucesso.')</script>";
         }
     } else {
         echo "<script>alert('Vaca não encontrada no sistema. Confira o identificador informado.')</script>";
     }
-
-    $database->closeConnection();
 }
 ?>
 

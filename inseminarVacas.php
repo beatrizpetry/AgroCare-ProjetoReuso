@@ -9,52 +9,25 @@
 </head>
 <body>
 
-    <?php
-        session_start();
-        include_once('Database.php'); 
-        
-        $database = Database::getInstance();
-        $conn = $database->conn;
+<?php
+require 'database.php';
+require 'Vaca.php';
 
-        if (!empty($_GET['search'])) {
-            $data = $_GET['search'];
+if (!empty($_GET['search'])) {
+    $num_ID_Vaca = $_GET['search'];
+    $vacas = Vaca::buscarVaca($num_ID_Vaca);
 
-            // Consulta SQL para buscar a vaca
-            $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<div class='dados-vaca'>";
-                    echo "<script>alert('Número Identificador: " . $row['num_ID_Vaca'] . " - Inseminação Confirmada')</script>";
-                    echo "</div>";
-                }
-            } else {
-                echo "<script>alert('Vaca não encontrada no sistema, confira o Identificador informado.')</script>";
-            }
-        } 
-        
-        if (!empty($_GET['search'])) {
-            $data = $_GET['search'];
-        
-            // Consulta SQL para obter a vaca correspondente ao número identificador
-            $sql = "SELECT * FROM Vaca WHERE num_ID_Vaca LIKE '%$data' ORDER BY num_ID_Vaca DESC";
-            $result = $conn->query($sql);
-        
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $id_vaca = $row['num_ID_Vaca'];
-        
-                    $string = "Inseminação Realizada";
-                    $sql_update = "UPDATE Vaca SET estado_Inseminação = '$string' WHERE num_ID_Vaca = '$id_vaca'";
-                    $conn->query($sql_update);
-                }
-            } 
+    if ($vacas->isNotEmpty()) {
+        foreach ($vacas as $vaca) {
+            $vaca->estado_Inseminação = 'Inseminação Realizada';
+            $vaca->save();
+            echo "<script>alert('Número Identificador: " . $vaca->num_ID_Vaca . " - Inseminação Confirmada')</script>";
         }
-
-        // Fechar a conexão com o banco de dados
-        $database->closeConnection();
-    ?>
+    } else {
+        echo "<script>alert('Vaca não encontrada no sistema, confira o Identificador informado.')</script>";
+    }
+}
+?>
 
 
     <div class="header">
